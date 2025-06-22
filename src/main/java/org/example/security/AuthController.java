@@ -3,6 +3,8 @@ package org.example.security;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,17 +22,17 @@ public class AuthController {
     private final UserDetailsService userDetailsService;
 
     @PostMapping("/api/authenticate")
-    public String createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
+    public ResponseEntity<String> createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
+            var token =  jwtUtil.generateToken(userDetails);
+            return ResponseEntity.ok(token);
         } catch (Exception e) {
-            throw new Exception("Incorrect username or password", e);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
-        return jwtUtil.generateToken(userDetails);
     }
 }
 

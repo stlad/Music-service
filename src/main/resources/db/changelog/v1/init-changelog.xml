@@ -153,10 +153,6 @@
             </column>
         </createTable>
 
-        <createIndex tableName="t_track_autor" indexName="idx_track_author_playlist">
-            <column name="link_playlist"/>
-        </createIndex>
-
         <createIndex tableName="t_track_autor" indexName="idx_track_author_track">
             <column name="link_track"/>
         </createIndex>
@@ -164,11 +160,6 @@
         <createIndex tableName="t_track_autor" indexName="idx_track_author_author">
             <column name="link_author"/>
         </createIndex>
-
-        <addUniqueConstraint
-                tableName="t_track_autor"
-                columnNames="link_playlist, link_track, link_author"
-                constraintName="uc_track_author_association"/>
     </changeSet>
 
 
