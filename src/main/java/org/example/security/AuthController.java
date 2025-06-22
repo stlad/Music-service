@@ -19,7 +19,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
-    @PostMapping("/authenticate")
+    @PostMapping("/api/authenticate")
     public String createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
         try {
             authenticationManager.authenticate(

@@ -17,10 +17,6 @@ public class TrackAutor {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "link_playlist")
-    private Playlist playlist;
-
-    @ManyToOne
     @JoinColumn(referencedColumnName = "id", name = "link_track")
     private Track track;
 

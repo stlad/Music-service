@@ -42,7 +42,7 @@
 
     <changeSet id="create-author" author="Vaganov.VS">
         <createTable tableName="t_author" remarks="Authors table">
-            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
+            <column name="id" type="UUID" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -57,7 +57,7 @@
 
     <changeSet id="create_playlist_table" author="Vaganov.VS">
         <createTable tableName="t_playlist" remarks="Playlists table">
-            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
+            <column name="id" type="UUID" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
@@ -85,8 +85,8 @@
     </changeSet>
 
     <changeSet id="create_review_table" author="Vaganov.VS">
-        <createTable tableName="review" remarks="Track reviews table">
-            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
+        <createTable tableName="t_review" remarks="Track reviews table">
+            <column name="id" type="UUID" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
@@ -105,7 +105,7 @@
             <column name="link_track" type="UUID">
                 <constraints nullable="false"
                              foreignKeyName="fk_review_track"
-                             referencedTableName="track"
+                             referencedTableName="t_track"
                              referencedColumnNames="id"/>
             </column>
 
@@ -117,15 +117,15 @@
             </column>
         </createTable>
 
-        <createIndex tableName="review" indexName="idx_review_track">
+        <createIndex tableName="t_review" indexName="idx_review_track">
             <column name="link_track"/>
         </createIndex>
 
-        <createIndex tableName="review" indexName="idx_review_user">
+        <createIndex tableName="t_review" indexName="idx_review_user">
             <column name="link_user"/>
         </createIndex>
 
-        <createIndex tableName="review" indexName="idx_review_track_hidden">
+        <createIndex tableName="t_review" indexName="idx_review_track_hidden">
             <column name="link_track"/>
             <column name="is_hidden"/>
         </createIndex>
@@ -134,21 +134,14 @@
 
     <changeSet id="create_track_author_table" author="Vaganov.VS">
         <createTable tableName="t_track_autor" remarks="Association table between tracks and authors in playlists">
-            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
+            <column name="id" type="UUID" >
                 <constraints primaryKey="true" nullable="false"/>
-            </column>
-
-            <column name="link_playlist" type="UUID">
-                <constraints nullable="false"
-                             foreignKeyName="fk_track_author_playlist"
-                             referencedTableName="t_playlist"
-                             referencedColumnNames="id"/>
             </column>
 
             <column name="link_track" type="UUID">
                 <constraints nullable="false"
                              foreignKeyName="fk_track_author_track"
-                             referencedTableName="track"
+                             referencedTableName="t_track"
                              referencedColumnNames="id"/>
             </column>
 
@@ -181,14 +174,14 @@
 
     <changeSet id="create_track_playlist_table" author="Vaganov.VS">
         <createTable tableName="t_track_playlist" remarks="Association table between tracks and playlists with position">
-            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
+            <column name="id" type="UUID" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
             <column name="link_track" type="UUID">
                 <constraints nullable="false"
                              foreignKeyName="fk_track_playlist_track"
-                             referencedTableName="track"
+                             referencedTableName="t_track"
                              referencedColumnNames="id"/>
             </column>
 
